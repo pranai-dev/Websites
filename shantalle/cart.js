@@ -1,6 +1,7 @@
 /* Pedido de serviços pelo WhatsApp — Shantalle Cristalina */
 (() => {
-  const CFG = Object.assign({ whatsapp: '5565996628877', pixKey: '', pixHolder: '', pixQrImage: '' }, window.SHANTALLE_CONFIG || {});
+  const CFG = Object.assign({ whatsapp: '5565996628877', pixKey: '', pixHolder: '', pixQrImage: '', erp: '' }, window.SHANTALLE_CONFIG || {});
+  const ERP = String(CFG.erp || '').replace(/\/+$/, '');
   const KEY = 'shantalle-pedido';
   const brl = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -85,8 +86,11 @@
       <div class="line-tools"><div class="qty"><button type="button" data-q="${l.id}" data-d="-1" aria-label="Diminuir quantidade de ${esc(l.name)}">−</button><span>${l.qty}</span><button type="button" data-q="${l.id}" data-d="1" aria-label="Aumentar quantidade de ${esc(l.name)}">+</button></div><button class="cart-remove" type="button" data-r="${l.id}">Remover</button></div></div>`).join('')
       + (toCombine() ? '<div class="cart-note">Itens sem valor definido aparecem como “a combinar” e não entram no total.</div>' : '')
       + (hasFrom() ? '<div class="cart-note">O Talismã Cristalino tem valor a partir de R$ 100, conforme o cristal escolhido.</div>' : '')
-      + `<label class="cart-field"><span>Seu nome</span><input id="cartName" type="text" autocomplete="name" maxlength="60" placeholder="Opcional"></label>
-         <label class="cart-field"><span>Melhor dia e horário</span><input id="cartWhen" type="text" maxlength="80" placeholder="Ex.: terça à tarde (opcional)"></label>`;
+      + `<label class="cart-field"><span>Seu nome</span><input id="cartName" type="text" autocomplete="name" maxlength="60" placeholder="${ERP ? 'Seu nome' : 'Opcional'}"></label>
+         ${ERP ? `<label class="cart-field"><span>Seu WhatsApp (com DDD)</span><input id="cartTel" type="tel" autocomplete="tel" maxlength="20" placeholder="(65) 99999-9999"></label>` : ''}
+         <div class="cart-row"><label class="cart-field"><span>Dia preferido</span><input id="cartDate" type="date" min="${hojeISO()}"></label>
+         <label class="cart-field"><span>Período</span><select id="cartPeriod"><option value="">Tanto faz</option><option value="manha">Manhã</option><option value="tarde">Tarde</option><option value="noite">Noite</option></select></label></div>
+         <label class="cart-field"><span>Observação sobre o horário</span><input id="cartWhen" type="text" maxlength="80" placeholder="Ex.: depois das 15h (opcional)"></label>`;
     body.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { const l = cart.find(x => x.id === b.dataset.q); l.qty = Math.max(1, Math.min(10, l.qty + Number(b.dataset.d))); changed(); });
     body.querySelectorAll('[data-r]').forEach(b => b.onclick = () => { cart = cart.filter(l => l.id !== b.dataset.r); changed(); });
     const label = cart.every(l => l.price == null) ? 'A combinar' : (hasFrom() ? 'A partir de ' : '') + brl(total());
@@ -96,10 +100,42 @@
     $('cartSend').onclick = send;
   }
 
+  const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const PER = { manha: 'manhã', tarde: 'tarde', noite: 'noite' };
+  const SEM = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+  /* preferência de dia/período: vai estruturada para o ERP (vira a ordem de serviço na Agenda) e em texto no WhatsApp */
+  function preferencia() {
+    const data = (($('cartDate') || {}).value || ''), periodo = (($('cartPeriod') || {}).value || ''), texto = (($('cartWhen') || {}).value || '').trim();
+    const partes = [];
+    if (data) partes.push(SEM[new Date(data + 'T12:00:00').getDay()] + ' ' + data.slice(8, 10) + '/' + data.slice(5, 7));
+    if (periodo) partes.push(PER[periodo] || periodo);
+    if (texto) partes.push(texto);
+    return { data, periodo, texto, resumo: partes.join(' · ') };
+  }
   function code() { const c = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let r = ''; for (let i = 0; i < 4; i++) r += c[Math.floor(Math.random() * c.length)]; return r; }
-  function send() {
-    const name = ($('cartName').value || '').trim(), when = ($('cartWhen').value || '').trim();
-    const id = code(), t = total(), partial = toCombine(), from = hasFrom();
+  /* Com o ERP ligado, o pedido também fica registrado no painel (número oficial do ERP).
+     Se o ERP estiver desligado ou recusar, segue só pelo WhatsApp — a cliente nunca fica sem enviar. */
+  async function registrarNoErp(name, tel, when, pref) {
+    if (!ERP || name.length < 2 || tel.replace(/\D/g, '').length < 10) return null;
+    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 6000);
+    try {
+      const r = await fetch(ERP + '/api/pedidos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl.signal,
+        body: JSON.stringify({ cliente: { nome: name, tel }, entrega: 'Retirada na loja', pagamento: CFG.pixKey ? 'Pix' : 'A combinar',
+          itens: cart.map(l => ({ id: l.id, q: l.qty })), obs: when ? 'Preferência de horário: ' + when : '', preferencia: pref && (pref.data || pref.periodo || pref.texto) ? { data: pref.data || undefined, periodo: pref.periodo || undefined, texto: pref.texto || undefined } : undefined, chave: 'site-' + Date.now() + '-' + code(),
+          ref: new URLSearchParams(location.search).get('ref') || undefined, consent: { salvar: false, whatsapp: true } }) });
+      if (!r.ok) return null;
+      const j = await r.json(); return j && j.pedido ? j.pedido.num : null;
+    } catch (e) { return null; } finally { clearTimeout(tm); }
+  }
+  async function send() {
+    const pref = preferencia();
+    const name = ($('cartName').value || '').trim(), when = pref.resumo;
+    const tel = (($('cartTel') || {}).value || '').trim();
+    if (ERP && (name.length < 2 || tel.replace(/\D/g, '').length < 10)) { toast('Informe seu nome e WhatsApp com DDD.'); ($('cartName').value ? $('cartTel') : $('cartName')).focus(); return; }
+    const win = window.open('', '_blank');                     // abre já (evita bloqueio de pop-up) e recebe o link depois
+    const btn = $('cartSend'); if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+    const num = await registrarNoErp(name, tel, when, pref);
+    const id = num || code(), t = total(), partial = toCombine(), from = hasFrom();
     const lines = cart.map(l => `• ${l.qty > 1 ? l.qty + 'x ' : ''}${l.name} — ${priceLabel(l).toLowerCase() === 'a combinar' ? 'a combinar' : priceLabel(l)}`).join('\n');
     let msg = `Olá! Gostaria de agendar pelo site da Shantalle Cristalina.\n\n*Pedido #${id}*\n${lines}`;
     if (t > 0) msg += `\n\n*Total${partial ? ' parcial' : ''}: ${from ? 'a partir de ' : ''}${brl(t)}*`;
@@ -107,7 +143,7 @@
     if (when) msg += `\nPreferência de horário: ${when}`;
     msg += CFG.pixKey ? `\n\nPagamento via Pix\nChave: ${CFG.pixKey}${CFG.pixHolder ? `\nTitular: ${CFG.pixHolder}` : ''}\nEnvio o comprovante nesta conversa.` : `\n\nForma de pagamento: a combinar.`;
     sent = { id, t, partial, from };
-    window.open(waUrl(msg), '_blank', 'noopener');
+    if (win) { win.opener = null; win.location.href = waUrl(msg); } else window.open(waUrl(msg), '_blank', 'noopener');
     done();
   }
   function done() {
@@ -126,6 +162,15 @@
       + `<button class="btn btn-light" type="button" id="cartFinish">Concluir e limpar o pedido</button>`;
     $('cartFinish').onclick = () => { cart = []; sent = null; changed(); close(); toast('Pedido concluído. Até breve!'); };
   }
+
+  /* Com o ERP ligado, "Agendar"/"Consultar" de cada serviço também passa pelo pedido: assim o atendimento
+     entra no painel como ordem de serviço para ser encaminhado a uma terapeuta. Sem ERP, segue direto ao WhatsApp. */
+  if (ERP) document.querySelectorAll('.service-actions a.btn[href*="wa.me"]').forEach(a => a.addEventListener('click', e => {
+    const card = a.closest('[data-id]'); if (!card) return;
+    e.preventDefault();
+    if (!has(card.dataset.id)) { const p = card.dataset.price; cart.push({ id: card.dataset.id, name: card.dataset.name, price: p === '' ? null : Number(p), from: card.dataset.from === '1', qty: 1 }); changed(); }
+    open();
+  }));
 
   syncButtons();
 })();

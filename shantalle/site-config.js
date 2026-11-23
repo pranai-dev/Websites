@@ -12,5 +12,6 @@ window.SHANTALLE_CONFIG = {
   whatsapp: "5565996628877", // somente números, com DDI e DDD
   pixKey: "",                // ex.: CNPJ, e-mail, telefone ou chave aleatória
   pixHolder: "",             // nome do titular da conta
-  pixQrImage: ""             // ex.: "assets/qrcode-pix.png"
+  pixQrImage: "",            // ex.: "assets/qrcode-pix.png"
+  erp: ""                    // endereço do ERP (ex.: "https://erp.shantallecristalina.com.br"). Vazio = só WhatsApp.
 };
