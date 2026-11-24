@@ -1,0 +1,17 @@
+# ---- Nunca vai para o GitHub ----
+# senhas e configurações locais
+.env
+.env.*
+!.env.exemplo
+# dados de clientes, pedidos e backups do ERP
+data/
+backups/
+*.json.enc
+PRIMEIRO-ACESSO.txt
+# pacotes e lixo do sistema
+node_modules/
+*.zip
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store

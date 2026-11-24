@@ -95,7 +95,7 @@
     body.querySelectorAll('[data-r]').forEach(b => b.onclick = () => { cart = cart.filter(l => l.id !== b.dataset.r); changed(); });
     const label = cart.every(l => l.price == null) ? 'A combinar' : (hasFrom() ? 'A partir de ' : '') + brl(total());
     foot.innerHTML = `<div class="cart-total"><span>Total${toCombine() ? ' parcial' : ''}</span><strong>${label}</strong></div>
-      <p class="cart-hint">O pedido abre no WhatsApp da Shantalle para confirmar horário e forma de pagamento.</p>
+      <p class="cart-hint">O pedido abre no WhatsApp da Shantalle para confirmar horário e forma de pagamento. Seus dados servem só para este atendimento (<a href="privacidade.html">privacidade</a>).</p>
       <button class="btn" type="button" id="cartSend">Enviar pedido pelo WhatsApp ↗</button>`;
     $('cartSend').onclick = send;
   }
@@ -163,13 +163,16 @@
     $('cartFinish').onclick = () => { cart = []; sent = null; changed(); close(); toast('Pedido concluído. Até breve!'); };
   }
 
-  /* Com o ERP ligado, "Agendar"/"Consultar" de cada serviço também passa pelo pedido: assim o atendimento
-     entra no painel como ordem de serviço para ser encaminhado a uma terapeuta. Sem ERP, segue direto ao WhatsApp. */
-  if (ERP) document.querySelectorAll('.service-actions a.btn[href*="wa.me"]').forEach(a => a.addEventListener('click', e => {
+  /* "Agendar" de cada serviço abre o pedido com a escolha de dia e período antes de ir ao WhatsApp
+     (sempre, com ou sem ERP). Com o ERP ligado, "Consultar" também passa pelo pedido, para virar ordem de serviço na Agenda. */
+  document.querySelectorAll('.service-actions a.btn[href*="wa.me"]').forEach(a => a.addEventListener('click', e => {
+    const agendar = /agendar/i.test(a.textContent);
+    if (!agendar && !ERP) return;
     const card = a.closest('[data-id]'); if (!card) return;
     e.preventDefault();
     if (!has(card.dataset.id)) { const p = card.dataset.price; cart.push({ id: card.dataset.id, name: card.dataset.name, price: p === '' ? null : Number(p), from: card.dataset.from === '1', qty: 1 }); changed(); }
     open();
+    if (agendar) setTimeout(() => { const d = $('cartDate'); if (d) { d.scrollIntoView({ block: 'center', behavior: 'smooth' }); d.focus({ preventScroll: true }); } }, 350);
   }));
 
   syncButtons();
