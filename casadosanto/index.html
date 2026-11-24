@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loja</title>
+<meta name="description" content="Monte a sacola e finalize pelo WhatsApp.">
+<meta name="theme-color" content="#16227a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="fotos/logo.webp">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="aviso" id="aviso">Carregando…</div>
+
+<header>
+  <div class="wrap hd">
+    <a class="marca" href="#" id="marca" aria-label="Início">
+      <span class="sim" id="marcaSimbolo" aria-hidden="true" hidden></span>
+      <img id="marcaLogo" alt="" hidden>
+      <span><strong id="marcaNome"></strong><small id="marcaSub"></small></span>
+    </a>
+    <div class="pesq" role="search">
+      <input type="search" id="busca" placeholder="Buscar produtos…" aria-label="Buscar produtos" autocomplete="off">
+    </div>
+    <button class="sac" id="abrirSacola" type="button" aria-haspopup="dialog" aria-controls="sacola">
+      Sacola <b id="qtdSacola">0</b>
+    </button>
+  </div>
+  <nav class="menu" aria-label="Categorias">
+    <div class="wrap" id="menuCats"></div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="vHero">
+    <div class="wrap">
+      <div>
+        <span class="sobre-t" id="heroSobre"></span>
+        <h1 id="heroTitulo"></h1>
+        <p id="heroTexto"></p>
+        <div class="bts">
+          <a class="btn o" href="#todos">Ver produtos</a>
+          <a class="btn l" id="heroWa" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <div class="dest" id="destaque" hidden></div>
+    </div>
+  </section>
+
+  <section class="dif" id="vDif" aria-label="Diferenciais">
+    <div class="wrap" id="difs"></div>
+  </section>
+
+  <div class="wrap">
+    <div id="vHome">
+      <div id="secDestaques" hidden>
+        <div class="tit"><h2>Destaques</h2><span>Escolhidos pela loja</span></div>
+        <div class="grid" id="gridDestaques"></div>
+      </div>
+      <div class="tit"><h2>Categorias</h2><span>Escolha por tema</span></div>
+      <div class="cats" id="cats"></div>
+      <div class="tit"><h2>Mais procurados</h2><a class="vt" href="#todos">Ver todos os produtos →</a></div>
+      <div class="grid" id="gridHome"><div class="vz">Carregando produtos…</div></div>
+    </div>
+
+    <div id="vPagina" hidden>
+      <div class="pgtopo"><button type="button" class="voltar" id="pgVoltar">← Início</button></div>
+      <div class="tit" id="produtos"><h2 id="titProdutos">Produtos</h2><span id="contProdutos" aria-live="polite"></span></div>
+      <div class="chips" id="chipsCats" role="navigation" aria-label="Categorias"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="tit" id="lojas"><h2>Nossas lojas</h2><span>Fale direto com a unidade</span></div>
+    <div class="lojas" id="listaLojas"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong id="rodNome"></strong>
+    <p id="rodape"></p>
+    <p style="margin-top:10px">
+      <a class="disc lnkPriv" href="#privacidade">Privacidade</a> ·
+      <a class="disc" href="#" id="esquecerRodape">Apagar meus dados deste aparelho</a>
+    </p>
+    <p id="privacidade" hidden style="max-width:640px;margin:12px auto 0;font-size:.8rem"></p>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a>
+
+<!-- página do produto (pop-up). Endereço #produto-<id>: o "voltar" do navegador fecha -->
+<div class="ov" id="ovProd"></div>
+<div class="pm" id="prodModal" role="dialog" aria-modal="true" aria-labelledby="pmNome" tabindex="-1" hidden>
+  <button class="x" type="button" id="pmFechar" aria-label="Voltar (Esc)">×</button>
+  <div class="pmg">
+    <div class="pmf" id="pmFoto"></div>
+    <div class="pmt" id="pmMinis"></div>
+  </div>
+  <div class="pmi">
+    <small id="pmCat"></small>
+    <h2 id="pmNome"></h2>
+    <div class="pr" id="pmPreco"></div>
+    <p id="pmDesc"></p>
+    <div class="pminfo" id="pmInfo"></div>
+    <div id="pmCtl"></div>
+    <button type="button" class="b2" id="pmVoltar">← Voltar aos produtos</button>
+  </div>
+</div>
+
+<!-- sacola / checkout -->
+<div class="ov" id="ov"></div>
+<aside class="dr" id="sacola" role="dialog" aria-modal="true" aria-labelledby="sacolaTit" aria-hidden="true" tabindex="-1">
+  <div class="dh">
+    <h2 id="sacolaTit">Sua sacola</h2>
+    <button class="x" id="fecharSacola" type="button" aria-label="Fechar (Esc)">×</button>
+  </div>
+
+  <div class="db" id="corpoSacola">
+    <div id="itens"></div>
+
+    <form class="fm" id="form" novalidate hidden>
+      <h4>Seus dados</h4>
+      <div class="saud" id="saud" hidden></div>
+      <label>Nome<input id="fNome" autocomplete="name" maxlength="80" required></label>
+      <label>WhatsApp com DDD<input id="fTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(DDD) 99999-9999" required></label>
+
+      <h4 id="titEntrega">Entrega</h4>
+      <div class="seg" id="segEntrega" role="group" aria-label="Forma de entrega">
+        <button type="button" data-entrega="Entrega" class="on" aria-pressed="true">Entrega local</button>
+        <button type="button" data-entrega="Retirada na loja" aria-pressed="false">Retirar na loja</button>
+        <button type="button" data-entrega="Envio" id="btEnvio" aria-pressed="false">Envio Brasil</button>
+      </div>
+      <div id="blocoEnd">
+        <p class="endaviso" id="envioAviso" hidden></p>
+        <div class="dupla" id="blocoEnvio" hidden>
+          <label>CEP<input id="fCep" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000"></label>
+          <label>Cidade / UF<input id="fCidade" autocomplete="address-level2" maxlength="60" placeholder="Ex.: Campo Grande/MS"></label>
+        </div>
+        <label id="lblBairro">Bairro<input id="fBairro" list="listaBairros" autocomplete="address-level3" maxlength="60" placeholder="Seu bairro"></label>
+        <datalist id="listaBairros"></datalist>
+        <label>Endereço completo<input id="fEnd" autocomplete="street-address" maxlength="300" placeholder="Rua, número, complemento, referência"></label>
+        <button type="button" class="conf" id="confEnd" aria-pressed="false">Confirmar endereço de entrega</button>
+        <p class="endaviso" id="endAviso">Confira rua, número e bairro antes de confirmar.</p>
+      </div>
+      <label id="lblLoja">Loja que vai atender<select id="fLoja"></select></label>
+
+      <h4>Pagamento</h4>
+      <label>Forma de pagamento<select id="fPag"></select></label>
+      <label>Observações (opcional)<textarea id="fObs" rows="2" maxlength="300" placeholder="Algum detalhe do pedido, melhor horário…"></textarea></label>
+
+      <!-- campo isca anti-robô: pessoas não veem -->
+      <div hidden aria-hidden="true"><input id="fSite" tabindex="-1" autocomplete="off"></div>
+
+      <label class="chk"><input type="checkbox" id="fSalvar"> Lembrar meus dados neste aparelho</label>
+      <label class="chk"><input type="checkbox" id="fWpp" checked> Quero receber avisos do pedido pelo WhatsApp</label>
+      <p class="endaviso">Seus dados são usados só para este pedido. <a href="#privacidade" class="lnkPriv">Saiba mais</a>.</p>
+    </form>
+
+    <div id="final" hidden></div>
+  </div>
+
+  <div class="df" id="rodSacola">
+    <div class="rw"><span>Subtotal</span><span id="vSub">R$ 0,00</span></div>
+    <div class="rw"><span>Frete</span><span id="vFrete">—</span></div>
+    <div class="rw tot"><span>Total</span><span id="vTot">R$ 0,00</span></div>
+    <p class="indic" id="indic"></p>
+    <button class="wa" id="btnFinalizar" type="button" disabled>Continuar</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+{
+ "rev": 2,
+ "categorias": [
+  {
+   "id": "velas",
+   "nome": "Velas",
+   "bg": "linear-gradient(135deg,#fdeccf,#f6cf8d)"
+  },
+  {
+   "id": "umbanda",
+   "nome": "Umbanda",
+   "bg": "linear-gradient(135deg,#e4e6f7,#b9bfe8)"
+  },
+  {
+   "id": "catolico",
+   "nome": "Católico",
+   "bg": "linear-gradient(135deg,#f3e6d0,#e2c79a)"
+  },
+  {
+   "id": "esoterico",
+   "nome": "Esotérico",
+   "bg": "linear-gradient(135deg,#eadcf2,#cdb2e0)"
+  },
+  {
+   "id": "ervas",
+   "nome": "Ervas e Incensos",
+   "bg": "linear-gradient(135deg,#dcebd8,#b6d3ad)"
+  }
+ ],
+ "produtos": [
+  {
+   "id": "1",
+   "nome": "Vela 7 dias branca (simples)",
+   "cat": "velas",
+   "preco": 1199,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Vela de 7 dias branca, no copo.",
+   "tag": "Preço real",
+   "img": "fotos/vela7-branca.webp"
+  },
+  {
+   "id": "2",
+   "nome": "Vela 7 dias colorida",
+   "cat": "velas",
+   "preco": 1299,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Vela de 7 dias colorida. Escolha a cor nas observações.",
+   "tag": "Preço real",
+   "img": "fotos/vela7-colorida.webp"
+  },
+  {
+   "id": "3",
+   "nome": "Vela palito (kg)",
+   "cat": "velas",
+   "preco": 3199,
+   "un": "g",
+   "base": 1000,
+   "passo": 250,
+   "desc": "Vela palito a granel. Preço por kg; adicione de 250 em 250 g.",
+   "tag": "Black Friday",
+   "img": "fotos/vela-palito.webp"
+  },
+  {
+   "id": "19",
+   "nome": "Vela palito (unidade)",
+   "cat": "velas",
+   "preco": 150,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Vela palito vendida por unidade. Preço de exemplo.",
+   "tag": "Preço fictício",
+   "img": "fotos/vela-palito.webp"
+  },
+  {
+   "id": "4",
+   "nome": "Caneca de ágata",
+   "cat": "umbanda",
+   "preco": 2990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Caneca esmaltada, para altar e firmezas.",
+   "tag": "",
+   "img": "fotos/caneca-agata.webp"
+  },
+  {
+   "id": "5",
+   "nome": "Copo de vidro para oferenda",
+   "cat": "umbanda",
+   "preco": 790,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Copo transparente, pronto para uso.",
+   "tag": "",
+   "img": "fotos/copo-oferenda.webp"
+  },
+  {
+   "id": "6",
+   "nome": "Bengala de madeira",
+   "cat": "umbanda",
+   "preco": 8990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Bengala em madeira trabalhada.",
+   "tag": "",
+   "img": "fotos/bengala.webp"
+  },
+  {
+   "id": "7",
+   "nome": "Chapéu de palha",
+   "cat": "umbanda",
+   "preco": 4990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Chapéu de palha artesanal.",
+   "tag": "",
+   "img": "fotos/chapeu-palha.webp"
+  },
+  {
+   "id": "8",
+   "nome": "Guia (colar) de contas",
+   "cat": "umbanda",
+   "preco": 3490,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Guia de contas, várias cores sob encomenda.",
+   "tag": "",
+   "img": "fotos/guia-contas.webp"
+  },
+  {
+   "id": "9",
+   "nome": "Nossa Senhora Aparecida 20cm",
+   "cat": "catolico",
+   "preco": 4990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Imagem em resina, pintura artesanal.",
+   "tag": "",
+   "img": "fotos/nsa.webp"
+  },
+  {
+   "id": "10",
+   "nome": "São Jorge 30cm",
+   "cat": "catolico",
+   "preco": 7990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Imagem de São Jorge em resina.",
+   "tag": "Mais vendido",
+   "img": "fotos/sao-jorge.webp"
+  },
+  {
+   "id": "11",
+   "nome": "Terço de madeira",
+   "cat": "catolico",
+   "preco": 2490,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Contas de madeira, crucifixo envelhecido.",
+   "tag": "",
+   "img": "fotos/terco.webp"
+  },
+  {
+   "id": "13",
+   "nome": "Baralho de tarot",
+   "cat": "esoterico",
+   "preco": 6990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "78 cartas com guia de interpretação.",
+   "tag": "",
+   "img": "fotos/tarot.webp"
+  },
+  {
+   "id": "14",
+   "nome": "Cristal quartzo rosa",
+   "cat": "esoterico",
+   "preco": 1990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Pedra bruta para energização.",
+   "tag": "Novo",
+   "img": "fotos/quartzo.webp"
+  },
+  {
+   "id": "15",
+   "nome": "Pêndulo de cristal",
+   "cat": "esoterico",
+   "preco": 3990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Pêndulo para radiestesia.",
+   "tag": "",
+   "img": "fotos/pendulo.webp"
+  },
+  {
+   "id": "16",
+   "nome": "Incenso de mirra",
+   "cat": "ervas",
+   "preco": 990,
+   "un": "un",
+   "base": null,
+   "passo": 1,
+   "desc": "Caixa com 20 varetas.",
+   "tag": "",
+   "img": "fotos/incenso-mirra.webp"
+  },
+  {
+   "id": "17",
+   "nome": "Alecrim seco a granel",
+   "cat": "ervas",
+   "preco": 650,
+   "un": "g",
+   "base": 100,
+   "passo": 100,
+   "desc": "Erva seca. Preço por 100 g.",
+   "tag": "",
+   "img": "fotos/alecrim.webp"
+  },
+  {
+   "id": "18",
+   "nome": "Arruda seca a granel",
+   "cat": "ervas",
+   "preco": 550,
+   "un": "g",
+   "base": 100,
+   "passo": 100,
+   "desc": "Erva seca. Preço por 100 g.",
+   "tag": "",
+   "img": "fotos/arruda.webp"
+  }
+ ],
+ "promocoes": [],
+ "loja": {
+  "nome": "Casa do Santo",
+  "simbolo": "",
+  "logoUrl": "fotos/logo.webp",
+  "whatsapp": "5565992826643",
+  "subtitulo": "4 lojas físicas em Cuiabá e loja virtual com envio para todo o Brasil. Escolha seus produtos, monte a sacola e finalize pelo WhatsApp.",
+  "selos": [
+   "✓ 4 lojas físicas em Cuiabá",
+   "✓ Envio para todo o Brasil",
+   "✓ Melhor preço"
+  ],
+  "rodape": "Lojas físicas: Dom Aquino · Porto · CPA 1 · Pedra 90 – Cuiabá/MT · Loja virtual com envio para todo o Brasil · Instagram @lojacasadosanto",
+  "pagamentos": [
+   "Pix",
+   "Cartão de crédito",
+   "Cartão de débito",
+   "Dinheiro"
+  ],
+  "moeda": "BRL",
+  "cidade": "Cuiabá",
+  "uf": "MT",
+  "unidades": [
+   {
+    "nome": "Dom Aquino",
+    "whatsapp": "5565992826643",
+    "horario": {
+     "seg_sex": [
+      "08:00",
+      "18:00"
+     ],
+     "sab": [
+      "08:00",
+      "14:00"
+     ],
+     "dom": null
+    },
+    "bairros": []
+   },
+   {
+    "nome": "Porto",
+    "whatsapp": "5565996966643",
+    "horario": {
+     "seg_sex": [
+      "08:00",
+      "18:00"
+     ],
+     "sab": [
+      "08:00",
+      "14:00"
+     ],
+     "dom": null
+    },
+    "bairros": []
+   },
+   {
+    "nome": "CPA 1",
+    "whatsapp": "5565992249098",
+    "horario": {
+     "seg_sex": [
+      "08:00",
+      "18:00"
+     ],
+     "sab": [
+      "08:00",
+      "14:00"
+     ],
+     "dom": null
+    },
+    "bairros": []
+   },
+   {
+    "nome": "Pedra 90",
+    "whatsapp": "5565996764777",
+    "horario": {
+     "seg_sex": [
+      "08:00",
+      "18:00"
+     ],
+     "sab": [
+      "08:00",
+      "14:00"
+     ],
+     "dom": null
+    },
+    "bairros": []
+   }
+  ],
+  "site": {
+   "tipoLoja": "Artigos religiosos",
+   "titulo": "Casa do Santo – Artigos religiosos",
+   "descricao": "Artigos religiosos, velas, ervas e imagens. 4 lojas em Cuiabá e envio para todo o Brasil. Monte a sacola e finalize pelo WhatsApp.",
+   "heroTitulo": "Tudo para a sua *fé*, perto de você",
+   "diferenciais": [
+    {
+     "icone": "loja",
+     "titulo": "4 lojas físicas em Cuiabá",
+     "texto": "Dom Aquino, Porto, CPA 1 e Pedra 90"
+    },
+    {
+     "icone": "entrega",
+     "titulo": "Delivery em Cuiabá e VG",
+     "texto": "Peça hoje, receba em casa"
+    },
+    {
+     "icone": "brasil",
+     "titulo": "Envio para todo o Brasil",
+     "texto": "Correios ou transportadora"
+    }
+   ],
+   "privacidade": "Usamos seu nome, WhatsApp e endereço apenas para preparar, entregar e avisar sobre o seu pedido. Só guardamos seus dados neste aparelho se você marcar “Lembrar meus dados”, e só enviamos mensagens se você autorizar. Para pedir a remoção dos seus dados das nossas lojas, fale conosco pelo WhatsApp.",
+   "tema": {
+    "primaria": "#16227a",
+    "primariaEscura": "#0b1250",
+    "destaque": "#c99a2e",
+    "destaqueClara": "#f1d98f",
+    "fundo": "#f6f4ee",
+    "whatsapp": "#1fa855"
+   },
+   "buscaExemplo": "Buscar velas, imagens, ervas…",
+   "envioTexto": "Enviamos para todo o Brasil. O frete (Correios ou transportadora) é combinado pelo WhatsApp depois do pedido."
+  },
+  "recursos": {
+   "vendedores": true,
+   "estoque": true,
+   "multiLojas": true,
+   "entrega": true,
+   "envio": true,
+   "_ajuda": "Desligue (false) o que o seu negócio não usa. vendedores=links de indicação e comissões; estoque=controle por loja; multiLojas=cliente escolhe a unidade; entrega=delivery local; envio=envio para outras cidades (frete combinado)."
+  },
+  "erp": false,
+  "siteUrl": "http://localhost:3000",
+  "lojaEnvio": "Dom Aquino",
+  "frete": {
+   "gratisAcimaCentavos": 0,
+   "bairros": [
+    {
+     "nome": "Dom Aquino",
+     "centavos": 800
+    },
+    {
+     "nome": "Porto",
+     "centavos": 800
+    },
+    {
+     "nome": "CPA 1",
+     "centavos": 1000
+    },
+    {
+     "nome": "Pedra 90",
+     "centavos": 1000
+    },
+    {
+     "nome": "Centro",
+     "centavos": 800
+    },
+    {
+     "nome": "Jardim Itália",
+     "centavos": 1200
+    },
+    {
+     "nome": "Várzea Grande",
+     "centavos": 1800
+    }
+   ]
+  },
+  "pix": {
+   "ativo": false
+  }
+ },
+ "geradoEm": "2026-11-23T17:03:10.789Z"
+}
